@@ -12,20 +12,39 @@ namespace Roommates.Repositories
     {
         public RoommateRepository(string connectionString) : base(connectionString) { }
 
-        //public List<Roommate> GetAll()
-        //{
-        //    using (SqlConnection conn = Connection)
-        //    {
-        //        conn.Open();
-        //        using (SqlCommand cmd = conn.CreateCommand())
-        //        {
-        //            cmd.CommandText = "SELECT * FROM Roommate";
+        public List<Roommate> GetAll()
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "SELECT rm.FirstName, rm.LastName FROM Roommate rm";
 
-        //            using ()
-        //        }
-        //    }
-        //}
-    public Roommate GetById(int id)
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        List<Roommate> roommates = new List<Roommate>();
+
+                        while (reader.Read())
+                        {
+                            int nameColumnPosition = reader.GetOrdinal("FirstName");
+                            string name = reader.GetString(nameColumnPosition);
+                            int lastNameColumnPosition = reader.GetOrdinal("LastName");
+                            string lname = reader.GetString(lastNameColumnPosition);
+                            Roommate roommate = new Roommate
+                            {
+                                FirstName = name,
+                                LastName = lname
+                            };
+                            roommates.Add(roommate);
+
+                        }
+                        return roommates;
+                    }
+                }
+            }
+        }
+        public Roommate GetById(int id)
         {
             using (SqlConnection conn = Connection)
             {

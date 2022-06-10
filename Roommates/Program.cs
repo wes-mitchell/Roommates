@@ -33,6 +33,15 @@ namespace Roommates
                         Console.Write("Press any key to continue");
                         Console.ReadKey();
                         break;
+                    case ("Show all roomies"):
+                        List<Roommate> roomies = roomieRepo.GetAll();
+                        foreach (Roommate r in roomies)
+                        {
+                            Console.WriteLine($"{r.FirstName} {r.LastName}");
+                        }
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
+                        break;
                     case ("Show all chores"):
                         List<Chore> chores = choreRepo.GetAll();
                         foreach (Chore c in chores)
@@ -133,6 +142,7 @@ namespace Roommates
                 "Show all chores",
                 "Search for chore",
                 "See unassigned chores",
+                "Show all roomies",
                 "Search for room",
                 "Search for roommate",
                 "Add a chore",
