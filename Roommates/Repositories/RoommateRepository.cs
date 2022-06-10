@@ -12,6 +12,19 @@ namespace Roommates.Repositories
     {
         public RoommateRepository(string connectionString) : base(connectionString) { }
 
+        //public List<Roommate> GetAll()
+        //{
+        //    using (SqlConnection conn = Connection)
+        //    {
+        //        conn.Open();
+        //        using (SqlCommand cmd = conn.CreateCommand())
+        //        {
+        //            cmd.CommandText = "SELECT * FROM Roommate";
+
+        //            using ()
+        //        }
+        //    }
+        //}
     public Roommate GetById(int id)
         {
             using (SqlConnection conn = Connection)
@@ -19,7 +32,8 @@ namespace Roommates.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = "SELECT r.Name rm.RoomId rm.FirstName, rm.RentPortion, r.Name FROM Roommate rm JOIN Room r ON r.Id = rm.RoomId WHERE Id = @Id";
+                    cmd.CommandText = @"SELECT r.Name, rm.Id, rm.FirstName, rm.RentPortion FROM Roommate rm JOIN Room r ON r.Id = rm.RoomId WHERE rm.Id = @Id";
+
                     cmd.Parameters.AddWithValue("@id", id);
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -31,7 +45,6 @@ namespace Roommates.Repositories
                         {
                             room = new Room()
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("RoomId")),
                                 Name = reader.GetString(reader.GetOrdinal("Name"))
                             };
 
