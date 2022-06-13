@@ -230,6 +230,16 @@ namespace Roommates
                     case ("Exit"):
                         runProgram = false;
                         break;
+                    case ("See roommate chore count"):
+                        List<ChoreCount> choreCount = choreRepo.GetChoreCount();
+                        foreach (ChoreCount c in choreCount)
+                        {
+                            Console.WriteLine($"{c.Name}: {c.ChoreAmount}");
+                        }
+                        Console.WriteLine("Make sure you make that even boy.");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
+                        break;
                 }
             }
 
@@ -254,6 +264,7 @@ namespace Roommates
                 "Delete a room",
                 "Update a room",
                 "Assign roommate a chore",
+                "See roommate chore count",
                 "Exit"
             };
 

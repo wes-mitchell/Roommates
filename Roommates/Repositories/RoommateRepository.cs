@@ -27,12 +27,15 @@ namespace Roommates.Repositories
 
                         while (reader.Read())
                         {
+                            int idColumnPosition = reader.GetOrdinal("Id");
+                            int idValue = reader.GetInt32(idColumnPosition);
                             int nameColumnPosition = reader.GetOrdinal("FirstName");
                             string name = reader.GetString(nameColumnPosition);
                             int lastNameColumnPosition = reader.GetOrdinal("LastName");
                             string lname = reader.GetString(lastNameColumnPosition);
                             Roommate roommate = new Roommate
                             {
+                                Id = idValue,
                                 FirstName = name,
                                 LastName = lname
                             };
