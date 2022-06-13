@@ -116,6 +116,26 @@ namespace Roommates
                         Console.Write("Press any key to continue");
                         Console.ReadKey();
                         break;
+                    case ("Update a chore"):
+                        List<Chore> choreList = choreRepo.GetAll();
+                        foreach (Chore c in choreList)
+                        {
+                            Console.WriteLine($"{c.Id} - {c.Name}");
+                        }
+
+                        Console.Write("Select a chore you'd like to update: ");
+                        int selectedChore = int.Parse(Console.ReadLine());
+                        Chore selChore = choreList.FirstOrDefault(c => c.Id == selectedChore);
+
+                        Console.Write("New Chore Name: ");
+                        selChore.Name = Console.ReadLine();
+                        selChore.Id = selectedChore;
+
+                        choreRepo.Update(selChore);
+                        Console.WriteLine($"Success, you renamed the chore to {selChore.Name}.");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
+                        break;
                     case ("Assign roommate a chore"):
                         List<Roommate> allRoommates = roomieRepo.GetAll();
 
@@ -188,6 +208,8 @@ namespace Roommates
                         roomRepo.Delete(roomId);
 
                         Console.WriteLine("That room is toast, bye bye.");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
                         break;
                     case ("Exit"):
                         runProgram = false;
@@ -210,6 +232,7 @@ namespace Roommates
                 "Search for room",
                 "Search for roommate",
                 "Add a chore",
+                "Update a chore",
                 "Add a room",
                 "Delete a room",
                 "Update a room",
