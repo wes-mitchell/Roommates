@@ -136,6 +136,22 @@ namespace Roommates
                         Console.Write("Press any key to continue");
                         Console.ReadKey();
                         break;
+                    case ("Delete a chore"):
+                        List<Chore> deleteChoreList = choreRepo.GetAll();
+                        foreach (Chore c in deleteChoreList)
+                        {
+                            Console.WriteLine($"{c.Id} - {c.Name}");
+                        }
+
+                        Console.WriteLine("Which id would you like to delete? ");
+                        int userSelection = int.Parse(Console.ReadLine());
+
+                        choreRepo.Delete(userSelection);
+
+                        Console.WriteLine($"You've successfully deleted the chore!");
+                        Console.Write("Press any key to continue");
+                        Console.ReadKey();
+                        break;
                     case ("Assign roommate a chore"):
                         List<Roommate> allRoommates = roomieRepo.GetAll();
 
@@ -233,6 +249,7 @@ namespace Roommates
                 "Search for roommate",
                 "Add a chore",
                 "Update a chore",
+                "Delete a chore",
                 "Add a room",
                 "Delete a room",
                 "Update a room",
